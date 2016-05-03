@@ -39,7 +39,7 @@ class Dashboard extends CI_Controller {
 		          <td>'.$tugas->id_penugasan.'</td>
 		          <td><a href="'.site_url('project/view/'.$tugas->id_projek).'" data-toggle="tooltip" title="Lihat Projek">'.$tugas->nama_projek.'</a></td>
 		          <td><a href="'.site_url('team/view/'.$tugas->id_tim).'">'.$tugas->nama_tim.'</a></td>
-		          <td><a href="#" data-toggle="tooltip" title="Kontak Tim Leader">'.$tugas->nama_anggota.'</a></td>
+		          <td><a href="'.site_url('profile/'.$tugas->username).'" data-toggle="tooltip" title="Kontak Tim Leader">'.$tugas->nama_anggota.'</a></td>
 		          <td>'.$tugas->tgl_dibuat.'</td>
 		          <td><progress value="'.$progress.'" max="'.$countTugas.'" title="Diselesaikan '.$progress.' dari '.$countTugas.' tugas."></td>
 		        </tr>';

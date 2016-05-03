@@ -56,4 +56,12 @@ class Anggota_model extends CI_Model {
 
 		return $this->db->get();
 	}
+
+	public function getByUsername($str){
+		$this->db->select('*');
+		$this->db->from($this->tbl);
+		$this->db->where('username', $str);
+
+		return $this->db->get();
+	}
 }

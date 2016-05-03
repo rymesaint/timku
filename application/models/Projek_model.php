@@ -20,6 +20,16 @@ class Projek_model extends CI_Model {
 		$this->db->insert($this->tbl, $data);
 	}
 
+	public function updateProjek($update, $id){
+		$this->db->where('id_projek', $id);
+		$this->db->update($this->tbl, $update);
+	}
+
+	public function deleteProjek($id){
+		$this->db->where('id_projek', $id);
+		$this->db->delete($this->tbl);
+	}
+
 	public function getSelectedProjek($str){
 		$this->db->select('*');
 		$this->db->from($this->tbl);

@@ -49,7 +49,42 @@ class Members extends CI_Controller {
 	public function profile($username){
 		$data['page'] = 'ViewProfile';
 
+		$cond = 'tk_anggota.username= "'.$username.'"';
+		$member  = $this->Anggota_model->AnggotaJoinTim($cond)->row();
+
+		$data['username'] = $member->username;
+		$data['namalengkap'] = $member->nama_anggota;
+		$data['email'] = $member->email;
+		$data['website'] = $member->website_profil;
+		$data['tgl_bergabung'] = $member->tgl_bergabung;
+
 		$this->load->view('template', $data);
+	}
+
+	public function edit(){
+		$data['page'] = 'EditProfile';
+
+		$anggota = $this->Anggota_model->getByUsername($this->session->userdata('username'))->row();
+
+		$data['namalengkap'] = $anggota->nama_anggota;
+		$data['email'] = $anggota->email;
+		$data['website'] = $anggota->website_profil;
+
+		$this->form_validation->set_rules('email', 'E-mail', 'trim|required|is_unique[tk_anggota.email]|valid_email');
+
+		if ($this->form_validation->run() == FALSE):
+			$this->load->view('template', $data);
+		else:
+			$username = $this->session->userdata('username');
+			$update['nama_anggota'] = $this->input->post('namalengkap');
+			$update['email'] = $this->input->post('email');
+			$update['website_profil'] = $this->input->post('website');
+			$update['tgl_diubah'] = date('Y-m-d H:i:s');
+
+			$this->Anggota_model->updateAnggota($update, $username);
+
+			redirect(current_url());
+		endif;
 	}
 
 	public function add(){

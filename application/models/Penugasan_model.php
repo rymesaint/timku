@@ -28,7 +28,7 @@ class Penugasan_model extends CI_Model {
 	}
 
 	public function joinAllPenugasan($idteam = null){
-		$this->db->select('id_penugasan, tk_tim.id_tim, tk_tim.nama_tim, tk_anggota.nama_anggota, tk_projek.nama_projek, tk_penugasan.tgl_dibuat, tk_projek.id_projek');
+		$this->db->select('id_penugasan, tk_tim.id_tim, tk_tim.nama_tim, tk_anggota.nama_anggota, tk_anggota.username, tk_projek.nama_projek, tk_penugasan.tgl_dibuat, tk_projek.id_projek');
 		$this->db->from($this->tbl);
 		$this->db->join('tk_anggota', 'tk_anggota.id_anggota='.$this->tbl.'.id_anggota');
 		$this->db->join('tk_projek', 'tk_projek.id_projek='.$this->tbl.'.id_projek');
