@@ -13,12 +13,18 @@ class Penugasan_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from($this->tbl);
 		$this->db->where('id_projek', $str);
+		$this->db->or_where('id_team', $str);
 
 		return $this->db->get();
 	}
 
 	public function insertPenugasan($data){
 		$this->db->insert($this->tbl, $data);
+	}
+
+	public function updatePenugasan($update, $id){
+		$this->db->where('id_penugasan', $id);
+		$this->db->update($this->tbl, $update);
 	}
 
 	public function joinAllPenugasan($idteam = null){

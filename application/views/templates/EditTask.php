@@ -15,6 +15,7 @@
 	<div class="form-group">
 	  <label class="col-md-4 control-label" for="pilihprojek">Pilih Projek</label>  
 	  <div class="col-md-4">
+	  <input type="hidden" name="idtugas" value="<?php 	echo $id_tugas ?>">
 	  <select class="form-control" id="pilihprojek" name="pilihprojek" required>
 	  	<?php echo $projects; ?>
 	  </select>
@@ -40,6 +41,16 @@
 	  <label class="col-md-4 control-label" for="deadline">Tanggal Deadline</label>
 	  <div class="col-md-4">                     
 	     <input id="deadline" name="deadline" type="date" class="form-control input-md" value="<?php echo date("Y-m-d", strtotime($tgl_deadline)) ?>" required>
+	  </div>
+	</div>
+
+	<div class="form-group">
+	  <label class="col-md-4 control-label" for="statustugas">Status Tugas</label>
+	  <div class="col-md-4">
+	  	<select id="statustugas" class="form-control" name="statustugas" required>
+	  			<option <?php 	echo ($status == 1? "selected" : "") ?> value="1">Selesai</option>
+	  			<option <?php 	echo ($status == 0? "selected" : "") ?> value="0">Belum Selesai</option>
+	  	</select>                     
 	  </div>
 	</div>
 

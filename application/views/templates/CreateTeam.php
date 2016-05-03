@@ -25,14 +25,6 @@
 	  </div>
 	</div>
 
-	<!-- File Button --> 
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="filebutton">Logo Tim</label>
-	  <div class="col-md-4">
-	    <input id="logofile" name="logofile" class="input-file" type="file">
-	  </div>
-	</div>
-
 	<!-- Button -->
 	<div class="form-group">
 	  <div class="col-md-4">

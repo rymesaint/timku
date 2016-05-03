@@ -59,6 +59,7 @@ $route['task/(:any)'] = 'task/$1';
 
 $route['project/view/(:any)'] = 'project/view/$1';
 $route['task/view/(:any)'] = 'task/view/$1';
+$route['task/delete/(:any)'] = 'task/delete/$1';
 $route['team/view/(:any)'] = 'team/view/$1';
 
 $route['login'] = 'authentication/index';

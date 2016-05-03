@@ -10,12 +10,6 @@
   <?php if($this->session->userdata('group_level') == 8): ?>
   <div class="pull-right">
     <a class="btn btn-success" href="<?php echo site_url('project/edit/'.$id_projek) ?>">Ubah Projek</a>
-    <?php if($status_pengerjaan == 1): ?>
-    <a class="btn btn-success" href="<?php echo site_url('project/edit/incomplete') ?>">Selesai</a>
-    <?php else: ?>
-    <a class="btn btn-danger" href="<?php echo site_url('project/edit/complete') ?>">Belum Selesai</a>
-    <a href="<?php echo site_url('project/edit/abandon') ?>" class="btn btn-warning">Drop</a>
-    <?php endif; ?>
   </div>
 <?php endif; ?>
   <div class="clearfix"></div>

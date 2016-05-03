@@ -10,6 +10,7 @@ class Team extends CI_Controller {
 			redirect('login');
 		endif;
 		$this->load->model('Tim_model');
+		$this->load->model('Anggota_model');
 		$this->load->model('Projek_model');
 		$this->load->model('Penugasan_model');
 		$this->load->library('form_validation');
@@ -29,6 +30,48 @@ class Team extends CI_Controller {
 			$insert['tgl_dirubah'] = date('Y-m-d H:i:s');
 			$this->Tim_model->insertTim($insert);
 			$this->load->view('template', $data);
+		endif;
+	}
+
+	public function edit($id){
+		$data['page'] = 'EditTeam';
+
+		$team = $this->Anggota_model->getAnggotaTim($id)->result();
+		$project = $this->Penugasan_model->getPenugasan($id)->row();
+		$tim = $this->Tim_model->getSelectedTim($id)->row();
+		
+		$data['id_projek'] = $project->id_projek;
+		$data['id_tim'] = $tim->id_tim;
+		$data['id_penugasan'] = $project->id_penugasan;
+		$data['nama_tim'] = $tim->nama_tim;
+		$data['deskripsi'] = $tim->deskripsi_tim;
+		$data['anggota'] = null;
+		foreach ($team as $anggota):
+			if($project->id_anggota == $anggota->id_anggota):
+				$data['anggota'] .= '<option selected value="'.$anggota->id_anggota.'">'.$anggota->nama_anggota.'</option>';
+			else:
+				$data['anggota'] .= '<option value="'.$anggota->id_anggota.'">'.$anggota->nama_anggota.'</option>';
+			endif;
+		endforeach;
+
+
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
+		$this->form_validation->set_rules('namatim', 'Nama Tim', 'trim|required');
+
+		if ($this->form_validation->run() == FALSE):
+			$this->load->view('template', $data);
+		else:
+			$penugasan['id_anggota'] = $this->input->post('pilihleader');
+			$id_penugasan = $this->input->post('idpenugasan');
+			$this->Penugasan_model->updatePenugasan($penugasan, $id_penugasan);
+
+			$teams['nama_tim'] = $this->input->post('namatim');
+			$teams['deskripsi_tim'] = $this->input->post('deskripsi');
+			$teams['tgl_dirubah'] = date('Y-m-d H:i:s');
+			$id_tim = $this->input->post('idtim');
+
+			$this->Tim_model->updateTim($teams, $id_tim);
+			redirect(current_url());
 		endif;
 	}
 

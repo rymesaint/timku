@@ -11,10 +11,12 @@ class Dashboard extends CI_Controller {
 		endif;
 		
 		$this->load->model('Penugasan_model');
+		$this->load->model('Tugas_model');
 	}
 	public function index()
 	{
 		$data['page'] = 'Dashboard';
+		$penugasan = '';
 		if($this->session->userdata('group_level') == 8):
 			$penugasan = $this->Penugasan_model->joinAllPenugasan()->result();
 		else:
@@ -23,16 +25,23 @@ class Dashboard extends CI_Controller {
 			$penugasan = $this->Penugasan_model->joinAllPenugasan($idteam)->result();
 		endif;
 
+		
+
 		$data['penugasan'] = '';
 		if($penugasan):
 			foreach ($penugasan as $tugas):
+				$params = 'id_projek = '.$tugas->id_projek;
+				$countTugas = $this->Tugas_model->countTugas($params);
+				$pr = 'status_pengerjaan = 1';
+				$progress = $this->Tugas_model->countTugas($pr);
+
 				$data['penugasan'] .= '<tr>
 		          <td>'.$tugas->id_penugasan.'</td>
 		          <td><a href="'.site_url('project/view/'.$tugas->id_projek).'" data-toggle="tooltip" title="Lihat Projek">'.$tugas->nama_projek.'</a></td>
 		          <td><a href="'.site_url('team/view/'.$tugas->id_tim).'">'.$tugas->nama_tim.'</a></td>
 		          <td><a href="#" data-toggle="tooltip" title="Kontak Tim Leader">'.$tugas->nama_anggota.'</a></td>
 		          <td>'.$tugas->tgl_dibuat.'</td>
-		          <td><progress value="10" max="100" title="In Progress 10%"></td>
+		          <td><progress value="'.$progress.'" max="'.$countTugas.'" title="Diselesaikan '.$progress.' dari '.$countTugas.' tugas."></td>
 		        </tr>';
 	        endforeach;
 	    else:

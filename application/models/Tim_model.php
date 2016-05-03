@@ -16,6 +16,11 @@ class Tim_model extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function updateTim($update, $id){
+		$this->db->where('id_tim', $id);
+		$this->db->update($this->tbl, $update);
+	}
+
 	public function insertTim($data){
 		$this->db->insert($this->tbl, $data);
 	}

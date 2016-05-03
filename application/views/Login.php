@@ -35,11 +35,6 @@
         <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Alamat E-mail" required autofocus autocomplete="off">
         <label for="inputPassword" class="sr-only">Kata Sandi</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Kata Sandi" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Ingat aku!
-          </label>
-        </div>
         <button class="btn btn-lg btn-login btn-block" type="submit">Masuk</button>
       </form>
 
